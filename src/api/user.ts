@@ -96,11 +96,8 @@ router.post("/register", async (req, res) => {
     console.log({ error });
 
     res.status(500).json({
-      message: prisma.user.findUnique({
-        where: {
-          email,
-        },
-      }).token.name,
+      //@ts-ignore
+      message: error.name,
     });
   }
 });
@@ -151,7 +148,8 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log({ error });
     res.status(500).json({
-      message: "process.env.DATABASE_URL",
+      //@ts-ignore
+      message: error.name,
     });
   }
 });
