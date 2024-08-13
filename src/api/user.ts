@@ -93,9 +93,7 @@ router.post("/register", async (req, res) => {
     console.log("this is the error below");
     console.log({ error });
 
-    res.status(500).json({
-      message: "we got to this part",
-    });
+    res.status(500).json(error);
   }
 });
 
@@ -167,9 +165,7 @@ router.get("/tweets", async (req, res) => {
     console.log("this is the error below");
 
     console.log(error);
-    res.status(500).json({
-      message: "we got to this part",
-    });
+    res.status(500).json(error);
   }
 });
 
