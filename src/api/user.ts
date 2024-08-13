@@ -96,7 +96,7 @@ router.post("/register", async (req, res) => {
     console.log({ error });
 
     res.status(500).json({
-      messsage: error,
+      message: error,
     });
   }
 });
@@ -147,7 +147,7 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log({ error });
     res.status(500).json({
-      messsage: error,
+      message: error,
     });
   }
 });
@@ -172,7 +172,7 @@ router.get("/tweets", async (req, res) => {
 
     console.log(error);
     res.status(500).json({
-      messsage: error,
+      message: error,
     });
   }
 });
