@@ -150,7 +150,11 @@ router.post("/login", async (req, res) => {
 
 router.get("/tweets", async (req, res) => {
   try {
-    const tweets = await prisma.post.findMany();
+    const tweets = await prisma.post.findMany({
+      include: {
+        user: true,
+      },
+    });
 
     if (!tweets) {
       return res.status(404).json({
