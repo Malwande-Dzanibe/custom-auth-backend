@@ -96,7 +96,11 @@ router.post("/register", async (req, res) => {
     console.log({ error });
 
     res.status(500).json({
-      message: process.env.DATABASE_URL,
+      message: prisma.user.findUnique({
+        where: {
+          email,
+        },
+      }).token.name,
     });
   }
 });
