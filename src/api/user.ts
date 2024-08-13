@@ -96,8 +96,7 @@ router.post("/register", async (req, res) => {
     console.log({ error });
 
     res.status(500).json({
-      //@ts-ignore
-      message: error.name,
+      message: process.env.DATABASE_URL,
     });
   }
 });
