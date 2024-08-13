@@ -30,6 +30,8 @@ router.post("/register", async (req, res) => {
   const name = req.body.name;
   const surname = req.body.surname;
 
+  console.log(req.body);
+
   const emailToken = generateEmailToken();
 
   const expiration = new Date(new Date().getTime() + 1000 * 60 * 10);
@@ -93,7 +95,9 @@ router.post("/register", async (req, res) => {
     console.log("this is the error below");
     console.log({ error });
 
-    res.status(500).json(error);
+    res.status(500).json({
+      messsage: error,
+    });
   }
 });
 
@@ -142,7 +146,9 @@ router.post("/login", async (req, res) => {
     res.status(200).json(tokenToEmail);
   } catch (error) {
     console.log({ error });
-    res.status(500).json(error);
+    res.status(500).json({
+      messsage: error,
+    });
   }
 });
 
@@ -165,7 +171,9 @@ router.get("/tweets", async (req, res) => {
     console.log("this is the error below");
 
     console.log(error);
-    res.status(500).json(error);
+    res.status(500).json({
+      messsage: error,
+    });
   }
 });
 
