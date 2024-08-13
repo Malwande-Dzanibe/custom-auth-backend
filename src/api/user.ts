@@ -180,4 +180,6 @@ router.get("/tweets", async (req, res) => {
   }
 });
 
+export const dynamic = "force-dynamic";
+
 export default router;
