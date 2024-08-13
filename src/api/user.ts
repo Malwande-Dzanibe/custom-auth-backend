@@ -148,8 +148,7 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log({ error });
     res.status(500).json({
-      //@ts-ignore
-      message: error.name,
+      message: process.env.DATABASE_URL,
     });
   }
 });
