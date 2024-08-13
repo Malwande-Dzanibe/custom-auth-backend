@@ -148,7 +148,7 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log({ error });
     res.status(500).json({
-      message: process.env.DATABASE_URL,
+      message: "process.env.DATABASE_URL",
     });
   }
 });
