@@ -163,6 +163,59 @@ router.post("/register", async (req, res) => {
           message: "Raw query failed. Code: {code}. Message: {message}",
         });
       }
+      if (error.code === "P2011") {
+        res.status(500).json({
+          message: "Null constraint violation on the {constraint}",
+        });
+      }
+      if (error.code === "P2012") {
+        res.status(500).json({
+          message: "Missing a required value at {path}",
+        });
+      }
+      if (error.code === "P2013") {
+        res.status(500).json({
+          message:
+            "Missing the required argument {argument_name} for field {field_name} on {object_name}.",
+        });
+      }
+      if (error.code === "P2014") {
+        res.status(500).json({
+          message:
+            "The change you are trying to make would violate the required relation '{relation_name}' between the {model_a_name} and {model_b_name} models.",
+        });
+      }
+      if (error.code === "P2015") {
+        res.status(500).json({
+          message: "A related record could not be found. {details}",
+        });
+      }
+      if (error.code === "P2016") {
+        res.status(500).json({
+          message: "Query interpretation error. {details}",
+        });
+      }
+      if (error.code === "P2017") {
+        res.status(500).json({
+          message:
+            "The records for relation {relation_name} between the {parent_name} and {child_name} models are not connected.",
+        });
+      }
+      if (error.code === "P2018") {
+        res.status(500).json({
+          message: "The required connected records were not found. {details}",
+        });
+      }
+      if (error.code === "P2019") {
+        res.status(500).json({
+          message: "Input error. {details}",
+        });
+      }
+      if (error.code === "P2020") {
+        res.status(500).json({
+          message: "Value out of range for the type. {details}",
+        });
+      }
     }
     res.status(500).json({
       message: "It is a different error",
@@ -307,6 +360,59 @@ router.get("/tweets", async (req, res) => {
       if (error.code === "P2010") {
         res.status(500).json({
           message: "Raw query failed. Code: {code}. Message: {message}",
+        });
+      }
+      if (error.code === "P2011") {
+        res.status(500).json({
+          message: "Null constraint violation on the {constraint}",
+        });
+      }
+      if (error.code === "P2012") {
+        res.status(500).json({
+          message: "Missing a required value at {path}",
+        });
+      }
+      if (error.code === "P2013") {
+        res.status(500).json({
+          message:
+            "Missing the required argument {argument_name} for field {field_name} on {object_name}.",
+        });
+      }
+      if (error.code === "P2014") {
+        res.status(500).json({
+          message:
+            "The change you are trying to make would violate the required relation '{relation_name}' between the {model_a_name} and {model_b_name} models.",
+        });
+      }
+      if (error.code === "P2015") {
+        res.status(500).json({
+          message: "A related record could not be found. {details}",
+        });
+      }
+      if (error.code === "P2016") {
+        res.status(500).json({
+          message: "Query interpretation error. {details}",
+        });
+      }
+      if (error.code === "P2017") {
+        res.status(500).json({
+          message:
+            "The records for relation {relation_name} between the {parent_name} and {child_name} models are not connected.",
+        });
+      }
+      if (error.code === "P2018") {
+        res.status(500).json({
+          message: "The required connected records were not found. {details}",
+        });
+      }
+      if (error.code === "P2019") {
+        res.status(500).json({
+          message: "Input error. {details}",
+        });
+      }
+      if (error.code === "P2020") {
+        res.status(500).json({
+          message: "Value out of range for the type. {details}",
         });
       }
     }
