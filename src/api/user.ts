@@ -102,123 +102,12 @@ router.post("/register", async (req, res) => {
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
-      if (error.code === "P2000") {
-        res.status(500).json({
-          message:
-            "The provided value for the column is too long for the column's type. Column: {column_name}",
-        });
-      }
-      if (error.code === "P2001") {
-        res.status(500).json({
-          message:
-            "The record searched for in the where condition ({model_name}.{argument_name} = {argument_value}) does not exist",
-        });
-      }
-      if (error.code === "P2002") {
-        res.status(500).json({
-          message: "Unique constraint failed on the {constraint}",
-        });
-      }
-      if (error.code === "P2003") {
-        res.status(500).json({
-          message: "Foreign key constraint failed on the field: {field_name}",
-        });
-      }
-      if (error.code === "P2004") {
-        res.status(500).json({
-          message: "A constraint failed on the database: {database_error}",
-        });
-      }
-      if (error.code === "P2005") {
-        res.status(500).json({
-          message:
-            "The value {field_value} stored in the database for the field {field_name} is invalid for the field's type",
-        });
-      }
-      if (error.code === "P2006") {
-        res.status(500).json({
-          message:
-            "The provided value {field_value} for {model_name} field {field_name} is not valid",
-        });
-      }
-      if (error.code === "P2007") {
-        res.status(500).json({
-          message: "Data validation error {database_error}",
-        });
-      }
-      if (error.code === "P2008") {
-        res.status(500).json({
-          message:
-            "Failed to parse the query {query_parsing_error} at {query_position}",
-        });
-      }
-      if (error.code === "P2009") {
-        res.status(500).json({
-          message:
-            "Failed to validate the query: {query_validation_error} at {query_position}",
-        });
-      }
-      if (error.code === "P2010") {
-        res.status(500).json({
-          message: "Raw query failed. Code: {code}. Message: {message}",
-        });
-      }
-      if (error.code === "P2011") {
-        res.status(500).json({
-          message: "Null constraint violation on the {constraint}",
-        });
-      }
-      if (error.code === "P2012") {
-        res.status(500).json({
-          message: "Missing a required value at {path}",
-        });
-      }
-      if (error.code === "P2013") {
-        res.status(500).json({
-          message:
-            "Missing the required argument {argument_name} for field {field_name} on {object_name}.",
-        });
-      }
-      if (error.code === "P2014") {
-        res.status(500).json({
-          message:
-            "The change you are trying to make would violate the required relation '{relation_name}' between the {model_a_name} and {model_b_name} models.",
-        });
-      }
-      if (error.code === "P2015") {
-        res.status(500).json({
-          message: "A related record could not be found. {details}",
-        });
-      }
-      if (error.code === "P2016") {
-        res.status(500).json({
-          message: "Query interpretation error. {details}",
-        });
-      }
-      if (error.code === "P2017") {
-        res.status(500).json({
-          message:
-            "The records for relation {relation_name} between the {parent_name} and {child_name} models are not connected.",
-        });
-      }
-      if (error.code === "P2018") {
-        res.status(500).json({
-          message: "The required connected records were not found. {details}",
-        });
-      }
-      if (error.code === "P2019") {
-        res.status(500).json({
-          message: "Input error. {details}",
-        });
-      }
-      if (error.code === "P2020") {
-        res.status(500).json({
-          message: "Value out of range for the type. {details}",
-        });
-      }
+      res.status(500).json({
+        message: error.code,
+      });
     }
     res.status(500).json({
-      message: "It is a different error",
+      message: "It has nothing to do with this",
     });
   }
 });
@@ -267,10 +156,14 @@ router.post("/login", async (req, res) => {
 
     res.status(200).json(tokenToEmail);
   } catch (error) {
-    console.log({ error });
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // The .code property can be accessed in a type-safe manner
+      res.status(500).json({
+        message: error.code,
+      });
+    }
     res.status(500).json({
-      //@ts-ignore
-      message: error.name,
+      message: "It has nothing to do with this",
     });
   }
 });
@@ -291,133 +184,14 @@ router.get("/tweets", async (req, res) => {
 
     res.status(200).json(tweets);
   } catch (error) {
-    // console.log("this is the error below");
-
-    // console.log(error);
-    // res.status(500).json({
-    //   //@ts-ignore
-    //   message: error.name,
-    // });
-
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
-      if (error.code === "P2000") {
-        res.status(500).json({
-          message:
-            "The provided value for the column is too long for the column's type. Column: {column_name}",
-        });
-      }
-      if (error.code === "P2001") {
-        res.status(500).json({
-          message:
-            "The record searched for in the where condition ({model_name}.{argument_name} = {argument_value}) does not exist",
-        });
-      }
-      if (error.code === "P2002") {
-        res.status(500).json({
-          message: "Unique constraint failed on the {constraint}",
-        });
-      }
-      if (error.code === "P2003") {
-        res.status(500).json({
-          message: "Foreign key constraint failed on the field: {field_name}",
-        });
-      }
-      if (error.code === "P2004") {
-        res.status(500).json({
-          message: "A constraint failed on the database: {database_error}",
-        });
-      }
-      if (error.code === "P2005") {
-        res.status(500).json({
-          message:
-            "The value {field_value} stored in the database for the field {field_name} is invalid for the field's type",
-        });
-      }
-      if (error.code === "P2006") {
-        res.status(500).json({
-          message:
-            "The provided value {field_value} for {model_name} field {field_name} is not valid",
-        });
-      }
-      if (error.code === "P2007") {
-        res.status(500).json({
-          message: "Data validation error {database_error}",
-        });
-      }
-      if (error.code === "P2008") {
-        res.status(500).json({
-          message:
-            "Failed to parse the query {query_parsing_error} at {query_position}",
-        });
-      }
-      if (error.code === "P2009") {
-        res.status(500).json({
-          message:
-            "Failed to validate the query: {query_validation_error} at {query_position}",
-        });
-      }
-      if (error.code === "P2010") {
-        res.status(500).json({
-          message: "Raw query failed. Code: {code}. Message: {message}",
-        });
-      }
-      if (error.code === "P2011") {
-        res.status(500).json({
-          message: "Null constraint violation on the {constraint}",
-        });
-      }
-      if (error.code === "P2012") {
-        res.status(500).json({
-          message: "Missing a required value at {path}",
-        });
-      }
-      if (error.code === "P2013") {
-        res.status(500).json({
-          message:
-            "Missing the required argument {argument_name} for field {field_name} on {object_name}.",
-        });
-      }
-      if (error.code === "P2014") {
-        res.status(500).json({
-          message:
-            "The change you are trying to make would violate the required relation '{relation_name}' between the {model_a_name} and {model_b_name} models.",
-        });
-      }
-      if (error.code === "P2015") {
-        res.status(500).json({
-          message: "A related record could not be found. {details}",
-        });
-      }
-      if (error.code === "P2016") {
-        res.status(500).json({
-          message: "Query interpretation error. {details}",
-        });
-      }
-      if (error.code === "P2017") {
-        res.status(500).json({
-          message:
-            "The records for relation {relation_name} between the {parent_name} and {child_name} models are not connected.",
-        });
-      }
-      if (error.code === "P2018") {
-        res.status(500).json({
-          message: "The required connected records were not found. {details}",
-        });
-      }
-      if (error.code === "P2019") {
-        res.status(500).json({
-          message: "Input error. {details}",
-        });
-      }
-      if (error.code === "P2020") {
-        res.status(500).json({
-          message: "Value out of range for the type. {details}",
-        });
-      }
+      res.status(500).json({
+        message: error.code,
+      });
     }
     res.status(500).json({
-      message: "It is a different error",
+      message: "It has nothing to do with this",
     });
   }
 });
