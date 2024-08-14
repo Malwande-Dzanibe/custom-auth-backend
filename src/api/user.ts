@@ -101,7 +101,7 @@ router.post("/register", async (req, res) => {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
       res.status(500).json({
-        message: req.body.surname,
+        message: req.body.confirmpassword,
       });
     }
     res.status(500).json({
