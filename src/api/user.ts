@@ -30,8 +30,6 @@ router.post("/register", async (req, res) => {
   const name = req.body.name;
   const surname = req.body.surname;
 
-  console.log(req.body);
-
   const emailToken = generateEmailToken();
 
   const expiration = new Date(new Date().getTime() + 1000 * 60 * 10);
@@ -103,7 +101,7 @@ router.post("/register", async (req, res) => {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
       res.status(500).json({
-        message: error.code,
+        message: req.body.name,
       });
     }
     res.status(500).json({
