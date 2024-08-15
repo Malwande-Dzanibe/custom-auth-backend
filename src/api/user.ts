@@ -80,7 +80,7 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return res.status(500).json({
-        message: `code : ${error.code}, message : ${error.message}`,
+        message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
       });
     }
     res.status(500).json({
@@ -135,7 +135,7 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return res.status(500).json({
-        message: `code : ${error.code}, message : ${error.message}`,
+        message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
       });
     }
     res.status(500).json({
@@ -162,7 +162,7 @@ router.get("/tweets", async (req, res) => {
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return res.status(500).json({
-        message: `code : ${error.code}, message : ${error.message}`,
+        message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
       });
     }
     res.status(500).json({
