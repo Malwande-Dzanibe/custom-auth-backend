@@ -79,7 +79,7 @@ router.post("/register", async (req, res) => {
     res.status(200).json(tokenToEmail);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error.message,
       });
     }
@@ -134,7 +134,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json(tokenToEmail);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error.code,
       });
     }
@@ -161,7 +161,7 @@ router.get("/tweets", async (req, res) => {
     res.status(200).json(tweets);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error.code,
       });
     }
