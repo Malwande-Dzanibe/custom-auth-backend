@@ -1,15 +1,3 @@
-// import express from 'express';
-
-// const router = express.Router();
-
-// type EmojiResponse = string[];
-
-// router.get<{}, EmojiResponse>('/', (req, res) => {
-//   res.json(['😀', '😳', '🙄']);
-// });
-
-// export default router;
-
 import { Router } from "express";
 import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
@@ -90,22 +78,13 @@ router.post("/register", async (req, res) => {
 
     res.status(200).json(tokenToEmail);
   } catch (error) {
-    // console.log("this is the error below");
-    // console.log({ error });
-
-    // res.status(500).json({
-    //   //@ts-ignore
-    //   message: error.name,
-    // });
-
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // The .code property can be accessed in a type-safe manner
       res.status(500).json({
         message: error.message,
       });
     }
     res.status(500).json({
-      message: "It has nothing to do with this",
+      message: "There was an error",
     });
   }
 });
@@ -155,13 +134,12 @@ router.post("/login", async (req, res) => {
     res.status(200).json(tokenToEmail);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // The .code property can be accessed in a type-safe manner
       res.status(500).json({
         message: error.code,
       });
     }
     res.status(500).json({
-      message: "It has nothing to do with this",
+      message: "There was an error",
     });
   }
 });
@@ -183,13 +161,12 @@ router.get("/tweets", async (req, res) => {
     res.status(200).json(tweets);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // The .code property can be accessed in a type-safe manner
       res.status(500).json({
         message: error.code,
       });
     }
     res.status(500).json({
-      message: "It has nothing to do with this",
+      message: "There was an error",
     });
   }
 });
