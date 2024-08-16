@@ -79,10 +79,12 @@ router.post("/register", async (req, res) => {
     res.status(200).json(tokenToEmail);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error);
       return res.status(500).json({
         message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
       });
     }
+    console.log(error);
     res.status(500).json({
       message: "There was an error",
     });
@@ -134,10 +136,12 @@ router.post("/login", async (req, res) => {
     res.status(200).json(tokenToEmail);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error);
       return res.status(500).json({
         message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
       });
     }
+    console.log(error);
     res.status(500).json({
       message: "There was an error",
     });
@@ -161,10 +165,13 @@ router.get("/tweets", async (req, res) => {
     res.status(200).json(tweets);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error);
       return res.status(500).json({
         message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
       });
     }
+
+    console.log(error);
     res.status(500).json({
       message: "There was an error",
     });
