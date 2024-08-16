@@ -86,7 +86,7 @@ router.post("/register", async (req, res) => {
     }
     console.log(error);
     res.status(500).json({
-      message: `${error}`,
+      message: process.env.DATABASE_URL,
     });
   }
 });
@@ -173,7 +173,7 @@ router.get("/tweets", async (req, res) => {
 
     console.log(error);
     res.status(500).json({
-      message: `${error}`,
+      message: process.env.DATABASE_URL,
     });
   }
 });
