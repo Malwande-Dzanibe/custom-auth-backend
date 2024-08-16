@@ -86,7 +86,7 @@ router.post("/register", async (req, res) => {
     }
     console.log(error);
     res.status(500).json({
-      message: "There was an error",
+      message: `${error}`,
     });
   }
 });
@@ -143,7 +143,7 @@ router.post("/login", async (req, res) => {
     }
     console.log(error);
     res.status(500).json({
-      message: "There was an error",
+      message: `${error}`,
     });
   }
 });
@@ -173,7 +173,7 @@ router.get("/tweets", async (req, res) => {
 
     console.log(error);
     res.status(500).json({
-      message: "There was an error",
+      message: `${error}`,
     });
   }
 });
