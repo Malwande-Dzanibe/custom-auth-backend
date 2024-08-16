@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import sendEmails from "../utils/sendEmail";
 
@@ -78,15 +78,9 @@ router.post("/register", async (req, res) => {
 
     res.status(200).json(tokenToEmail);
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error);
-      return res.status(500).json({
-        message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
-      });
-    }
     console.log(error);
     res.status(500).json({
-      message: process.env.DATABASE_URL,
+      message: `${error}`,
     });
   }
 });
@@ -135,12 +129,6 @@ router.post("/login", async (req, res) => {
 
     res.status(200).json(tokenToEmail);
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error);
-      return res.status(500).json({
-        message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
-      });
-    }
     console.log(error);
     res.status(500).json({
       message: `${error}`,
@@ -156,7 +144,7 @@ router.get("/tweets", async (req, res) => {
       },
     });
 
-    if (!tweets) {
+    if (tweets.length < 1) {
       return res.status(404).json({
         message: "No Posts To Display",
       });
@@ -164,16 +152,9 @@ router.get("/tweets", async (req, res) => {
 
     res.status(200).json(tweets);
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error);
-      return res.status(500).json({
-        message: `code : ${error.code}, message : ${error.message}, cause : ${error.cause}, name : ${error.name}`,
-      });
-    }
-
     console.log(error);
     res.status(500).json({
-      message: process.env.DATABASE_URL,
+      message: `${error}`,
     });
   }
 });
