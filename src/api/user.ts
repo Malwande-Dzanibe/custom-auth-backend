@@ -142,6 +142,9 @@ router.get("/tweets", async (req, res) => {
       include: {
         user: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     if (tweets.length < 1) {
