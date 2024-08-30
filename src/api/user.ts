@@ -101,7 +101,7 @@ router.post("/login", async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: `We do not have a user by the email of ${email}`,
+        message: `User does not exist`,
       });
     }
 

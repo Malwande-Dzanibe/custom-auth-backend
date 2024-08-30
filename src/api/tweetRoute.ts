@@ -15,7 +15,9 @@ router.post("/", async (req, res) => {
 
   try {
     if (!jwtoken) {
-      return res.sendStatus(401);
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
     }
 
     const payLoad = Jwt.verify(jwtoken, process.env.JWT_SECRET as string) as {
@@ -45,12 +47,8 @@ router.post("/", async (req, res) => {
       },
     });
 
-    console.log(tweet);
-
     res.status(200).json(tweet);
   } catch (error) {
-    console.log(error);
-
     res.status(401).json({
       message: `${error}`,
     });

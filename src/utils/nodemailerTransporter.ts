@@ -5,14 +5,11 @@ const transporterFunction = () => {
     host: "smtp-mail.outlook.com",
     secure: false,
     port: 587,
-    // tls: {
-    //   ciphers: "SSLv3",
-    // },
     auth: {
-      user: "malwandedza@outlook.com",
-      pass: "M0839818321m*",
+      user: process.env.USER,
+      pass: process.env.PASS,
     },
-    from: "malwandedza@outlook.com",
+    from: process.env.USER,
   });
 
   return transporter;
