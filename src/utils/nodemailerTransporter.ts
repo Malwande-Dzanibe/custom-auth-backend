@@ -6,10 +6,10 @@ const transporterFunction = () => {
     secure: false,
     port: 587,
     auth: {
-      user: process.env.USER,
+      user: "malwandedza@outlook.com",
       pass: process.env.PASS,
     },
-    from: process.env.USER,
+    from: "malwandedza@outlook.com",
   });
 
   return transporter;
