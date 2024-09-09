@@ -1,5 +1,7 @@
 import nodemailerTransporter from "./nodemailerTransporter";
 
+let message: string;
+
 const sendEmails = (
   user: {
     id: string;
@@ -33,11 +35,13 @@ const sendEmails = (
     (error: any, infor: any) => {
       if (error) {
         console.log(error);
+        message = `${error}`;
       } else {
         console.log("email was successfully sent");
+        message = "email was successfully sent";
       }
     }
   );
 };
 
-export default sendEmails;
+export { sendEmails, message };
