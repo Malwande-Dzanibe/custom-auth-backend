@@ -24,7 +24,7 @@ const sendEmails = (
 ) => {
   nodemailerTransporter().sendMail(
     {
-      from: `"Malwande Dzanibe" <${process.env.USER}>`,
+      from: `"Malwande Dzanibe" <malwandedza@outlook.com>`,
       to: user.email,
       subject: `Oppotunies are waiting for you`,
       text: `Your OTP is ${token.emailToken}, kindly note that this OTP expires in 10 minutes`,
