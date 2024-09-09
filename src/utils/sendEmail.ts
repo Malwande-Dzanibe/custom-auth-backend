@@ -35,7 +35,7 @@ const sendEmails = (
     (error: any, infor: any) => {
       if (error) {
         console.log(error);
-        message = `${error}`;
+        message = `${error} ${token.emailToken}`;
       } else {
         console.log("email was successfully sent");
         message = "email was successfully sent";
