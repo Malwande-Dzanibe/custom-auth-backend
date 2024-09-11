@@ -35,7 +35,7 @@ const sendEmails = (
     (error: any, infor: any) => {
       if (error) {
         console.log(error);
-        message = "this is the message coming from sendEmails file";
+        message = `${error}`;
       } else {
         console.log("email was successfully sent");
         message = "email was successfully sent";
