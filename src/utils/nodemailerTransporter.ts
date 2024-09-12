@@ -7,7 +7,7 @@ const transporterFunction = () => {
     port: 587,
     auth: {
       user: "malwandedza@outlook.com",
-      pass: "M0839818321m*",
+      pass: process.env.PASS,
     },
     from: "malwandedza@outlook.com",
   });
