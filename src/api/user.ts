@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { sendEmails } from "../utils/sendEmail";
+import sendEmails from "../utils/sendEmail";
 
 const router = Router();
 
