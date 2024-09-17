@@ -49,7 +49,7 @@ const sendEmails = async (
     to: user.email,
     subject: `Verification code from custom auth demo project`,
     text: `Your verification code is ${token.emailToken}, this verification code expires in 10 minutes`,
-    html: `<h4 style={{ color: "red", fontSize: "12px", textAlign: "center" }}>Your verification code is ${token.emailToken}</h4> <p style={{ textAlign: "center" }}>This code exprires in 10 minutes</p>`,
+    html: `<h4>Your verification code is ${token.emailToken}</h4> <p>This code exprires in 10 minutes</p>`,
   };
 
   await new Promise((resolve, reject) => {
