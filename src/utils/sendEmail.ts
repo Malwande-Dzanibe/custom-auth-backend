@@ -26,11 +26,11 @@ const sendEmails = (
 ) => {
   nodemailerTransporter().sendMail(
     {
-      from: `"Malwande Dzanibe" <malwandedza@outlook.com>`,
+      from: `"Malwande" <malwandedza@outlook.com>`,
       to: user.email,
-      subject: `Oppotunies are waiting for you`,
-      text: `Your OTP is ${token.emailToken}, kindly note that this OTP expires in 10 minutes`,
-      html: `<h1>Your OTP is ${token.emailToken}</h1> <p>kindly note that this OTP expires in 10 minutes</p>`,
+      subject: `Verification code from custom auth demo project`,
+      text: `Your verification code is ${token.emailToken}, this verification code expires in 10 minutes`,
+      html: `<h4 style={{ color: "red", fontSize: "12px", textAlign: "center" }}>Your verification code is ${token.emailToken}</h4> <p style={{ textAlign: "center" }}>This code exprires in 10 minutes</p>`,
     },
     (error: any, infor: any) => {
       if (error) {

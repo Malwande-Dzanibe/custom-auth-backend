@@ -3,9 +3,6 @@ import nodemailer from "nodemailer";
 const transporterFunction = () => {
   let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
-    tls: {
-      rejectUnauthorized: false,
-    },
     secure: false,
     port: 587,
     auth: {
