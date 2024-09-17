@@ -1,7 +1,5 @@
 import nodemailer from "nodemailer";
 
-let message: string;
-
 const sendEmails = async (
   user: {
     id: string;
@@ -38,11 +36,9 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-        message = `${error}`;
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
-        message = `${success}`;
         resolve(success);
       }
     });
@@ -60,15 +56,13 @@ const sendEmails = async (
     transporter.sendMail(mailData, (err, info) => {
       if (err) {
         console.error(err);
-        message = `${err}`;
         reject(err);
       } else {
         console.log(info);
-        message = `${info}`;
         resolve(info);
       }
     });
   });
 };
 
-export { message, sendEmails };
+export default sendEmails;
