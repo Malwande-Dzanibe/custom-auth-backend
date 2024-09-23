@@ -23,12 +23,12 @@ const sendEmails = async (
   }
 ) => {
   let transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
+    host: "smtp-mail.outlook.com",
     secure: false,
     port: 587,
     auth: {
       user: "malwandedza@outlook.com",
-      pass: process.env.PASS,
+      pass: `${process.env.PASS}`,
     },
   });
 
@@ -53,11 +53,12 @@ const sendEmails = async (
   };
 
   await new Promise((resolve, reject) => {
-    transporter.sendMail(mailData, (err, info) => {
-      if (err) {
-        console.error(err);
-        reject(err);
+    transporter.sendMail(mailData, (error, info) => {
+      if (error) {
+        console.error(error);
+        reject(error);
       } else {
+        console.log("success");
         console.log(info);
         resolve(info);
       }

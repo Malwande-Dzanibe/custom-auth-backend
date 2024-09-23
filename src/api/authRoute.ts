@@ -35,19 +35,20 @@ router.post("/", async (req, res) => {
 
     if (!tokenFromDB || !tokenFromDB.isValid) {
       return res.status(401).json({
-        message: "Invalid OTP",
+        message: "Invalid verification code",
       });
     }
 
     if (tokenFromDB?.user.email !== email) {
       return res.status(401).json({
-        message: "Please double check your email address and OTP and try again",
+        message:
+          "Please double check your email address & verification code and try again",
       });
     }
 
     if (tokenFromDB.expiration < new Date()) {
       return res.status(401).json({
-        message: "This OTP has expired",
+        message: "This verification code has expired",
       });
     }
 
