@@ -20,7 +20,10 @@ router.post("/", async (req, res) => {
       });
     }
 
-    const payLoad = Jwt.verify(jwtoken, process.env.JWT_SECRET as string) as {
+    const payLoad = Jwt.verify(
+      jwtoken,
+      `${process.env.JWT_SECRET} ` as string
+    ) as {
       id: string;
     };
 
