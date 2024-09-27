@@ -23,10 +23,9 @@ const sendEmails = async (
   }
 ) => {
   let transporter = nodemailer.createTransport({
-    // host: "smtp-mail.outlook.com",
-    // secure: false,
-    // port: 587,
-    service: "hotmail",
+    host: "smtp-mail.outlook.com",
+    secure: false,
+    port: 587,
     auth: {
       user: "malwandedza@outlook.com",
       pass: `${process.env.PASS}`,
@@ -37,6 +36,7 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
+
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
@@ -56,7 +56,6 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.sendMail(mailData, (error, info) => {
       if (error) {
-        console.error(error);
         reject(error);
       } else {
         console.log("success");
