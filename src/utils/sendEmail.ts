@@ -55,7 +55,6 @@ const sendEmails = async (
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
-        message = `${error} very good`;
         resolve("Server is ready to take our messages");
       }
     });
