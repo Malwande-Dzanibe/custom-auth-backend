@@ -1,7 +1,9 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
-let message: string;
+const message = (err: string) => {
+  return err;
+};
 
 const sendEmails = async (
   user: {
@@ -51,11 +53,11 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-        message = `${error} very good`;
+        message(`${error}`);
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
-        message = "Server is ready to take our messages";
+        message("Server is ready to take our messages");
         resolve(success);
       }
     });
@@ -72,11 +74,11 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.sendMail(mailData, (error, info) => {
       if (error) {
-        message = `${error} very good`;
+        message(`${error}`);
         reject(error);
       } else {
         console.log("success");
-        message = `${info}`;
+        message("success");
         console.log(info);
         resolve(info);
       }
