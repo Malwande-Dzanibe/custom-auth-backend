@@ -49,6 +49,8 @@ const sendEmails = async (
     },
   });
 
+  eyy.message = "call  again";
+
   await new Promise((resolve, reject) => {
     transporter.verify(function (error, success) {
       if (error) {
