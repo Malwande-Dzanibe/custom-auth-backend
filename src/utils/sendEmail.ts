@@ -1,7 +1,9 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
-let message: string;
+let eyy = {
+  message: "call",
+};
 
 const sendEmails = async (
   user: {
@@ -51,7 +53,7 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-        message = `the problem is here `;
+        eyy.message = `the problem is here `;
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
@@ -81,4 +83,4 @@ const sendEmails = async (
   });
 };
 
-export { message, sendEmails };
+export { eyy, sendEmails };
