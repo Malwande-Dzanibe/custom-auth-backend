@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
 const message = (err: string) => {
-  return `${err} eyyyy`;
+  return `${err} eyyyy wees`;
 };
 
 const sendEmails = async (
