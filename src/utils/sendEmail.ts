@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
-let message = "welcome back";
+let message: string;
 
 const sendEmails = async (
   user: {
@@ -51,7 +51,7 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-        message = `${error}`;
+        message = `the problem is here `;
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
@@ -71,7 +71,6 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.sendMail(mailData, (error, info) => {
       if (error) {
-        message = `${error}`;
         reject(error);
       } else {
         console.log("success");
