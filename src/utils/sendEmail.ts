@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
-let message: string;
+let message = "well done";
 
 const sendEmails = async (
   user: {
