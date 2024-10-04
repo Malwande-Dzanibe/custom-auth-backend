@@ -54,7 +54,6 @@ const sendEmails = async (
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
-        message = "Server is ready to take our messages";
         resolve("Server is ready to take our messages");
       }
     });
@@ -71,6 +70,7 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.sendMail(mailData, (error, info) => {
       if (error) {
+        message = `${error}`;
         reject(error);
       } else {
         console.log("success");
