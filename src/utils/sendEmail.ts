@@ -51,7 +51,7 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-        message = `the problem is here`;
+        message = `${error}`;
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
