@@ -1,6 +1,8 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
+let message: string;
+
 const sendEmails = async (
   user: {
     id: string;
@@ -49,7 +51,7 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-
+        message = `${error}`;
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
@@ -63,7 +65,7 @@ const sendEmails = async (
     to: user.email,
     subject: `Verification code from custom auth demo project`,
     text: `Your verification code is ${token.emailToken}, this verification code expires in 10 minutes`,
-    html: `<h4>Your verification code is ${token.emailToken}</h4> <p>This code exprires in 10 minutes</p>`,
+    html: `<h4>Your verification code is ${token.emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
   };
 
   await new Promise((resolve, reject) => {
@@ -79,4 +81,4 @@ const sendEmails = async (
   });
 };
 
-export default sendEmails;
+export { message, sendEmails };
