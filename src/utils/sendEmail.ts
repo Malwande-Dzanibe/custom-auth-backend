@@ -72,12 +72,10 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.sendMail(mailData, (error, info) => {
       if (error) {
-        message = `${error} very good`;
         reject(error);
       } else {
         console.log("success");
         console.log(info);
-        message = `${info} very good`;
         resolve(info);
       }
     });
