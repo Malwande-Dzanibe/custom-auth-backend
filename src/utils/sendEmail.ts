@@ -75,6 +75,7 @@ const sendEmails = async (
       } else {
         console.log("success");
         console.log(info);
+        message = `${info}`;
         resolve(info);
       }
     });
