@@ -53,10 +53,11 @@ const sendEmails = async (
     transporter.verify(function (error, success) {
       if (error) {
         console.log(error);
-        eyy.message = `the problem is here `;
+        eyy.message = `the problem is here 1`;
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
+        eyy.message = `the problem is here 2`;
         resolve("Server is ready to take our messages");
       }
     });
@@ -73,10 +74,12 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.sendMail(mailData, (error, info) => {
       if (error) {
+        eyy.message = `the problem is here 3`;
         reject(error);
       } else {
         console.log("success");
         console.log(info);
+        eyy.message = `the problem is here 4`;
         resolve(info);
       }
     });
