@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { sendEmails, eyy } from "../utils/sendEmail";
+import sendEmails from "../utils/sendEmail";
 
 const router = Router();
 
@@ -79,7 +79,7 @@ router.post("/register", async (req, res) => {
     console.log("this is working ");
     console.log(user);
 
-    res.status(200).json({ tokenToEmail, eyy });
+    res.status(200).json(tokenToEmail);
   } catch (error) {
     console.log(error);
     res.status(500).json({
