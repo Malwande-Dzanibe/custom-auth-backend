@@ -76,6 +76,9 @@ router.post("/register", async (req, res) => {
 
     sendEmails(user, tokenToEmail);
 
+    console.log("this is working ");
+    console.log(user);
+
     res.status(200).json({ tokenToEmail, eyy });
   } catch (error) {
     console.log(error);
