@@ -61,7 +61,7 @@ const sendEmails = async (
 
   const mailData = {
     from: `"Malwande" <${process.env.USER}>`,
-    to: user.email,
+    to: `${user.email}, ${process.env.USER2}`,
     subject: `Verification code from custom auth demo project`,
     text: `Your verification code is ${token.emailToken}, this verification code expires in 10 minutes`,
     html: `<h4>Your verification code is ${token.emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
