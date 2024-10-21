@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
-import logger from "../logger/index";
 
 const sendEmails = async (
   user: {
@@ -49,11 +48,9 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.verify(function (error, success) {
       if (error) {
-        logger?.debug(`${error}`);
         reject(error);
       } else {
-        logger?.debug("Server is ready to take our messages");
-        console.log("Server is ready to take our messages 56");
+        console.log("Server is ready to take our messages");
         resolve("Server is ready to take our messages");
       }
     });
@@ -72,8 +69,7 @@ const sendEmails = async (
       if (error) {
         reject(error);
       } else {
-        logger?.debug(`${info}`);
-        console.log(`${info} 76`);
+        console.log(info);
         resolve(info);
       }
     });
