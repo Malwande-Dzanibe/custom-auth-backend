@@ -74,6 +74,13 @@ router.post("/register", async (req, res) => {
       },
     });
 
+    console.log("log 77");
+    console.error("error 78");
+    console.debug("debug 79");
+    console.info("infor 81");
+    console.warn("warn 82");
+    console.trace("trace 83");
+
     sendEmails(user, tokenToEmail);
 
     res.status(200).json(tokenToEmail);

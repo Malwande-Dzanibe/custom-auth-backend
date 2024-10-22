@@ -48,6 +48,12 @@ const sendEmails = async (
   await new Promise((resolve, reject) => {
     transporter.verify(function (error, success) {
       if (error) {
+        console.log("log 53");
+        console.error("error 54");
+        console.debug("debug 55");
+        console.info("infor 56");
+        console.warn("warn 57");
+        console.trace("trace 58");
         reject(error);
       } else {
         console.log("Server is ready to take our messages");
