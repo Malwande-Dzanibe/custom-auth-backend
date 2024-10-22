@@ -133,7 +133,7 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.log(`I come from line 134 ${error}`);
     res.status(500).json({
-      message: `${error}`,
+      message: `I come from line 136 ${error}`,
     });
   }
 });
