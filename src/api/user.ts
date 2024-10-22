@@ -100,7 +100,7 @@ router.post("/register", async (req, res) => {
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
         if (error) {
-          console.log(error);
+          console.log(`I come from line 103 ${error}`);
           reject(error);
         } else {
           console.log("Server is ready to take our messages");
@@ -131,7 +131,7 @@ router.post("/register", async (req, res) => {
 
     res.status(200).json(tokenToEmail);
   } catch (error) {
-    console.log(error);
+    console.log(`I come from line 134 ${error}`);
     res.status(500).json({
       message: `${error}`,
     });
