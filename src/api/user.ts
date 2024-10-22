@@ -120,7 +120,7 @@ router.post("/register", async (req, res) => {
     await new Promise((resolve, reject) => {
       transporter.sendMail(mailData, (error, info) => {
         if (error) {
-          console.log(error);
+          console.log(`I come from line 123 ${error}`);
           reject(error);
         } else {
           console.log(info);
@@ -203,7 +203,8 @@ router.post("/login", async (req, res) => {
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
         if (error) {
-          console.log(error);
+          console.log(`I come from line 206 ${error}`);
+
           reject(error);
         } else {
           console.log("Server is ready to take our messages");
