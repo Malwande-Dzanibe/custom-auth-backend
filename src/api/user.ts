@@ -120,7 +120,7 @@ router.post("/register", async (req, res) => {
     await new Promise((resolve, reject) => {
       transporter.sendMail(mailData, (error, info) => {
         if (error) {
-          console.log(`I come from line 123 ${error}`);
+          console.log(error);
           reject(error);
         } else {
           console.log(info);
@@ -131,9 +131,9 @@ router.post("/register", async (req, res) => {
 
     res.status(200).json(tokenToEmail);
   } catch (error) {
-    console.log(`I come from line 134 ${error}`);
+    console.log(error);
     res.status(500).json({
-      message: `I come from line 136 ${error}`,
+      message: error,
     });
   }
 });
@@ -203,7 +203,7 @@ router.post("/login", async (req, res) => {
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
         if (error) {
-          console.log(`I come from line 206 ${error}`);
+          console.log(error);
 
           reject(error);
         } else {
