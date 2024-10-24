@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
       },
     });
 
-    if (!tokenFromDB || !tokenFromDB.isValid) {
+    if (!tokenFromDB) {
       return res.status(401).json({
         message: "Invalid verification code",
       });
