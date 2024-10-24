@@ -11,6 +11,8 @@ router.post("/", async (req, res) => {
 
   const auth = req.headers["authorization"];
 
+  console.log(auth);
+
   const jwtoken = auth?.split(" ")[1];
 
   try {
