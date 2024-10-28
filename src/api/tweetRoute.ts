@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
     res.status(200).json(tweet);
   } catch (error) {
     res.status(401).json({
-      message: `${error}`,
+      message: `the error is ${error}`,
     });
   }
 });
