@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
-import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
       });
     }
 
-    const payLoad = Jwt.verify(jwtoken, `${process.env.JWT_SECRET} `) as {
+    const payLoad = jwt.verify(jwtoken, `${process.env.JWT_SECRET}`) as {
       id: string;
     };
 
