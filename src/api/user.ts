@@ -245,19 +245,26 @@ router.post("/login", async (req, res) => {
 router.post("/send-email", async (req, res) => {
   const email = req.body.email;
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-  if (!user) {
-    return res.status(401).json({
-      message: `${email} does not exist`,
+    if (!user) {
+      return res.status(401).json({
+        message: `${email} does not exist`,
+      });
+    }
+
+    res.status(200).json(email);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: `${error}`,
     });
   }
-
-  res.status(200).json(email);
 });
 
 router.put("/confirm", async (req, res) => {
@@ -268,101 +275,108 @@ router.put("/confirm", async (req, res) => {
   const expiration = new Date(new Date().getTime() + 1000 * 60 * 10);
   const emailToken = generateEmailToken();
 
-  if (password !== confirmpassword) {
-    return res.status(401).json({
-      message: "Passwords do not match",
+  try {
+    if (password !== confirmpassword) {
+      return res.status(401).json({
+        message: "Passwords do not match",
+      });
+    }
+
+    if (password.length < 8) {
+      return res.status(401).json({
+        message: "password too short",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+
+    password = await bcrypt.hash(password, salt);
+    confirmpassword = await bcrypt.hash(confirmpassword, salt);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password,
+        confirmpassword,
+      },
+    });
+
+    const tokenToEmail = await prisma.token.create({
+      data: {
+        expiration,
+        type: "email",
+        emailToken,
+        userId: updatedUser.id,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    const oAuth2Client = new google.auth.OAuth2(
+      `${process.env.CLIENT_ID}`,
+      `${process.env.CLIENT_SECRET}`,
+      `${process.env.REDIRECT}`
+    );
+
+    oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+
+    const accessToken = await oAuth2Client.getAccessToken();
+
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: `${process.env.USER}`,
+        clientId: `${process.env.CLIENT_ID}`,
+        clientSecret: `${process.env.CLIENT_SECRET}`,
+        refreshToken: `${process.env.REFRESH_TOKEN}`,
+        accessToken: `${accessToken}`,
+      },
+    });
+
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log(error);
+
+          reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          resolve("Server is ready to take our messages");
+        }
+      });
+    });
+
+    const mailData = {
+      from: `"Malwande" <${process.env.USER}>`,
+      to: `${updatedUser.email}, ${process.env.USER2}`,
+      subject: `Verification code from custom auth demo project`,
+      text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
+      html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
+    };
+
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailData, (error, info) => {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log(info);
+          resolve(info);
+        }
+      });
+    });
+
+    res.status(200).json(tokenToEmail.user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: `${error}`,
     });
   }
-
-  if (password.length < 8) {
-    return res.status(401).json({
-      message: "password too short",
-    });
-  }
-
-  const salt = await bcrypt.genSalt(10);
-
-  password = await bcrypt.hash(password, salt);
-  confirmpassword = await bcrypt.hash(confirmpassword, salt);
-
-  const updatedUser = await prisma.user.update({
-    where: {
-      email,
-    },
-    data: {
-      password,
-      confirmpassword,
-    },
-  });
-
-  const tokenToEmail = await prisma.token.create({
-    data: {
-      expiration,
-      type: "email",
-      emailToken,
-      userId: updatedUser.id,
-    },
-    include: {
-      user: true,
-    },
-  });
-
-  const oAuth2Client = new google.auth.OAuth2(
-    `${process.env.CLIENT_ID}`,
-    `${process.env.CLIENT_SECRET}`,
-    `${process.env.REDIRECT}`
-  );
-
-  oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
-
-  const accessToken = await oAuth2Client.getAccessToken();
-
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: `${process.env.USER}`,
-      clientId: `${process.env.CLIENT_ID}`,
-      clientSecret: `${process.env.CLIENT_SECRET}`,
-      refreshToken: `${process.env.REFRESH_TOKEN}`,
-      accessToken: `${accessToken}`,
-    },
-  });
-
-  await new Promise((resolve, reject) => {
-    transporter.verify(function (error, success) {
-      if (error) {
-        console.log(error);
-
-        reject(error);
-      } else {
-        console.log("Server is ready to take our messages");
-        resolve("Server is ready to take our messages");
-      }
-    });
-  });
-
-  const mailData = {
-    from: `"Malwande" <${process.env.USER}>`,
-    to: `${updatedUser.email}, ${process.env.USER2}`,
-    subject: `Verification code from custom auth demo project`,
-    text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
-    html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
-  };
-
-  await new Promise((resolve, reject) => {
-    transporter.sendMail(mailData, (error, info) => {
-      if (error) {
-        console.log(error);
-        reject(error);
-      } else {
-        console.log(info);
-        resolve(info);
-      }
-    });
-  });
-
-  res.status(200).json(tokenToEmail.user);
 });
 
 router.get("/tweets", async (req, res) => {
