@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
 
     if (user) {
       return res.status(401).json({
-        message: `${email} already exists`,
+        message: `Could not find ${email} `,
       });
     }
 
@@ -154,7 +154,7 @@ router.post("/login", async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: `${email} does not exist`,
+        message: `Could not find ${email} `,
       });
     }
 
@@ -245,6 +245,9 @@ router.post("/login", async (req, res) => {
 router.post("/send-email", async (req, res) => {
   const email = req.body.email;
 
+  const expiration = new Date(new Date().getTime() + 1000 * 60 * 10);
+  const emailToken = generateEmailToken();
+
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -254,61 +257,16 @@ router.post("/send-email", async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: `${email} does not exist`,
+        message: `Could not find ${email} `,
       });
     }
-
-    res.status(200).json(email);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: `${error}`,
-    });
-  }
-});
-
-router.put("/confirm", async (req, res) => {
-  let password = req.body.password;
-  let confirmpassword = req.body.confirmpassword;
-  const email = req.body.email;
-
-  const expiration = new Date(new Date().getTime() + 1000 * 60 * 10);
-  const emailToken = generateEmailToken();
-
-  try {
-    if (password !== confirmpassword) {
-      return res.status(401).json({
-        message: "Passwords do not match",
-      });
-    }
-
-    if (password.length < 8) {
-      return res.status(401).json({
-        message: "password too short",
-      });
-    }
-
-    const salt = await bcrypt.genSalt(10);
-
-    password = await bcrypt.hash(password, salt);
-    confirmpassword = await bcrypt.hash(confirmpassword, salt);
-
-    const updatedUser = await prisma.user.update({
-      where: {
-        email,
-      },
-      data: {
-        password,
-        confirmpassword,
-      },
-    });
 
     const tokenToEmail = await prisma.token.create({
       data: {
         expiration,
         type: "email",
         emailToken,
-        userId: updatedUser.id,
+        userId: user.id,
       },
       include: {
         user: true,
@@ -321,7 +279,9 @@ router.put("/confirm", async (req, res) => {
       `${process.env.REDIRECT}`
     );
 
-    oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+    oAuth2Client.setCredentials({
+      refresh_token: process.env.REFRESH_TOKEN,
+    });
 
     const accessToken = await oAuth2Client.getAccessToken();
 
@@ -352,7 +312,7 @@ router.put("/confirm", async (req, res) => {
 
     const mailData = {
       from: `"Malwande" <${process.env.USER}>`,
-      to: `${updatedUser.email}`,
+      to: `${tokenToEmail.user.email}`,
       subject: `Verification code from custom auth demo project`,
       text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
       html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
@@ -370,7 +330,49 @@ router.put("/confirm", async (req, res) => {
       });
     });
 
-    res.status(200).json(tokenToEmail.user);
+    res.status(200).json(tokenToEmail.user.email);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: `${error}`,
+    });
+  }
+});
+
+router.put("/confirm", async (req, res) => {
+  let password = req.body.password;
+  let confirmpassword = req.body.confirmpassword;
+  const email = req.body.email;
+
+  try {
+    if (password !== confirmpassword) {
+      return res.status(401).json({
+        message: "Passwords do not match",
+      });
+    }
+
+    if (password.length < 8) {
+      return res.status(401).json({
+        message: "password too short",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+
+    password = await bcrypt.hash(password, salt);
+    confirmpassword = await bcrypt.hash(confirmpassword, salt);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password,
+        confirmpassword,
+      },
+    });
+
+    res.status(200).json(updatedUser);
   } catch (error) {
     console.log(error);
     res.status(500).json({
