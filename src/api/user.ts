@@ -330,6 +330,8 @@ router.post("/send-email", async (req, res) => {
       });
     });
 
+    console.log(`this is what in the console log ${user.email}`);
+
     res.status(200).json(user.email);
   } catch (error) {
     console.log(error);
