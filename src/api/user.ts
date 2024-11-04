@@ -312,7 +312,7 @@ router.post("/send-email", async (req, res) => {
 
     const mailData = {
       from: `"Malwande" <${process.env.USER}>`,
-      to: `${tokenToEmail.user.email}`,
+      to: `${user.email}`,
       subject: `Verification code from custom auth demo project`,
       text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
       html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
@@ -330,7 +330,7 @@ router.post("/send-email", async (req, res) => {
       });
     });
 
-    res.status(200).json(tokenToEmail.user.email);
+    res.status(200).json(user.email);
   } catch (error) {
     console.log(error);
     res.status(500).json({
