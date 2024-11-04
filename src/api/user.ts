@@ -111,7 +111,7 @@ router.post("/register", async (req, res) => {
 
     const mailData = {
       from: `"Malwande" <${process.env.USER}>`,
-      to: `${user.email}, ${process.env.USER2}`,
+      to: `${user.email}`,
       subject: `Verification code from custom auth demo project`,
       text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
       html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
@@ -215,7 +215,7 @@ router.post("/login", async (req, res) => {
 
     const mailData = {
       from: `"Malwande" <${process.env.USER}>`,
-      to: `${user.email}, ${process.env.USER2}`,
+      to: `${user.email}`,
       subject: `Verification code from custom auth demo project`,
       text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
       html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
@@ -352,7 +352,7 @@ router.put("/confirm", async (req, res) => {
 
     const mailData = {
       from: `"Malwande" <${process.env.USER}>`,
-      to: `${updatedUser.email}, ${process.env.USER2}`,
+      to: `${updatedUser.email}`,
       subject: `Verification code from custom auth demo project`,
       text: `Your verification code is ${emailToken}, this verification code expires in 10 minutes`,
       html: `<h4>Your verification code is ${emailToken}</h4> <p>This verification code exprires in 10 minutes</p>`,
