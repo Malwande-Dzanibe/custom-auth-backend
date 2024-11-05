@@ -39,6 +39,10 @@ router.post("/", async (req, res) => {
       });
     }
 
+    console.log("this is the body from the fronrend :-");
+    console.log(emailToken);
+    console.log(email);
+
     if (tokenFromDB?.user.email !== email) {
       return res.status(401).json({
         message:
