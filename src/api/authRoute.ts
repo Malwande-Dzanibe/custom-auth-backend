@@ -13,9 +13,6 @@ const generateJWT = (id: string) => {
 };
 
 router.post("/", async (req, res) => {
-  // const emailToken = req.body.emailToken;
-  // const email = req.body.email;
-
   const emailToken = req.body.token.emailToken;
   const email = req.body.userEmail;
 
@@ -38,10 +35,6 @@ router.post("/", async (req, res) => {
         message: "Invalid verification code",
       });
     }
-
-    console.log("this is the body from the fronrend :-");
-    console.log(emailToken);
-    console.log(email);
 
     if (tokenFromDB?.user.email !== email) {
       return res.status(401).json({
