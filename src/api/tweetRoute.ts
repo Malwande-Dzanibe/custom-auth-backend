@@ -13,8 +13,6 @@ router.post("/", async (req, res) => {
 
   const jwtoken = auth?.split(" ")[1];
 
-  console.log(jwtoken);
-
   try {
     if (!jwtoken) {
       return res.status(401).json({
@@ -52,6 +50,50 @@ router.post("/", async (req, res) => {
     res.status(200).json(tweet);
   } catch (error) {
     res.status(401).json({
+      message: `the error is ${error}`,
+    });
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const comment = await prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(401).json({
+      message: `the error is ${error}`,
+    });
+  }
+});
+
+router.put("/edit/:id", async (req, res) => {
+  const content = req.body.content;
+  const id = req.params.id;
+
+  console.log(id);
+  console.log(content);
+
+  try {
+    const comment = await prisma.post.update({
+      where: {
+        id,
+      },
+      data: {
+        content,
+      },
+    });
+
+    res.status(200).json(comment);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
       message: `the error is ${error}`,
     });
   }
