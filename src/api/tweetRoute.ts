@@ -73,7 +73,7 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-router.put("/edit/:id", async (req, res) => {
+router.put("/editt/:id", async (req, res) => {
   const content = req.body.content;
   const id = req.params.id;
 
