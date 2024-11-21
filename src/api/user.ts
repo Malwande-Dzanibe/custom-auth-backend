@@ -154,7 +154,7 @@ router.post("/login", async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: `Could not find ${email} `,
+        message: `could not find ${email} `,
       });
     }
 
