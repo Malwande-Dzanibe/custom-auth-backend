@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
 
     if (user) {
       return res.status(401).json({
-        message: `Could not find ${email} `,
+        message: `${email} already exists`,
       });
     }
 
@@ -100,7 +100,6 @@ router.post("/register", async (req, res) => {
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {
         if (error) {
-          console.log(`I come from line 103 ${error}`);
           reject(error);
         } else {
           console.log("Server is ready to take our messages");
